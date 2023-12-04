@@ -2,9 +2,19 @@
     <div>
         <div class="w-1/2 m-auto flex justify-center h-[600px]">
             <div class="flex flex-col w-full">
-                <h1>Welcome, Team Ace</h1>
-                <button @click="showDID" class="px-4 py-2 bg-purple-600">Show my DID</button>
-                <textarea class="border border-gray-500 mt-10 w-full h-full p-2" v-model="text"></textarea>
+                <h1 class="text-bold text-4xl">Welcome, Team Ace</h1>
+                <p>The site is under construction...</p>
+                <!-- <button @click="showDID" class="px-4 py-2 bg-purple-600">Show my DID</button>
+                <textarea class="border border-gray-500 mt-10 w-full h-full p-2" v-model="text"></textarea> -->
+
+                <div class="w-1/2 mx-automt-10">
+                    <div class="py-10">
+                        <h1 class="pb-5">Register as a service provider</h1>
+                        <NuxtLink to="register" class="bg-black text-white px-4 py-2 text-semibold rounded-md">
+                            Register
+                        </NuxtLink>
+                    </div>
+                </div>
             </div>
         </div>
     </div>
@@ -56,9 +66,9 @@
         console.log('Protocol configured', configureStatus, protocol);
     }
 
-    onBeforeMount(async () => {
-        await configureProtocol()
-    })
+    // onBeforeMount(async () => {
+    //     await configureProtocol()
+    // })
 
     //I want to send list of booked rooms to my DWN to be queried by anybody.
     

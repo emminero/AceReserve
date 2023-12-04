@@ -10,12 +10,9 @@
             "schema": "https://hotelservice.com/schemas/emptyRooms",
             "dataFormats": ["application/json"]
         },
-        "images": {
-            "dataFormats": ["image/jpeg"]
-        },
-        "captions": {
-            "schema": "https://hotelservice.com/schemas/captions",
-            "dataFormats": ["text/plain"]
+        "hotelDetails": {
+            "schema": "https://hotelservice.com/schemas/emptyRooms",
+            "dataFormats": ["application/json"]
         }
     },
     "structure": {
@@ -32,16 +29,10 @@
                 
             ]
         },
-        "images": {
+        "hotelInformation": {
             "$actions": [
                 { "who": "anyone", "can": "read" },
-                { "who": "author", "of": "images", "can": "write" }
-            ]
-        },
-        "captions": {
-            "$actions": [
-                { "who": "anyone", "can": "read" },
-                { "who": "author", "of": "captions", "can": "write" }
+                { "who": "author", "of": "hotelDetails", "can": "write" }
             ]
         }
     }
