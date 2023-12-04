@@ -32,7 +32,7 @@
         "hotelDetails": {
             "$actions": [
                 { "who": "anyone", "can": "read" },
-                { "who": "author", "of": "hotelDetails", "can": "write" }
+                { "who": "anyone", "can": "write" }
             ]
         }
     }

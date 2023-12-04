@@ -1,5 +1,6 @@
 {
     "@type": "emptyRooms",
+    "name": "Golden Villa Suite",
     "emptyRooms" : [
         {
             "roomNo" : 1,

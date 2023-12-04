@@ -80,7 +80,7 @@ const register = async() => {
             });
 
             if(userDID.value != myDID){
-                protocol.send(userDID)
+                protocol.send(userDID.value)
             }
             protocol.send(myDID)
 
@@ -90,24 +90,23 @@ const register = async() => {
 
         await configureProtocol()
 
+        //Create Hotel Details
+
         const hotelDetail = {
             "@type" : "hotelDetails",
-            "details" : [
-                {
-                    "name" : "Golden Villa Suite",
-                    "location": "James Street, Lagos",
-                    "star": "3 stars",
-                    "state": "Lagos",
-                    "country": "Nigeria",
-                    "image": "did:ion:EiDLntnm4WB9lBPq4TDL41cZHMrApDhGbPGW05nRJZMJXA:eyJkZWx0YSI6eyJwYXRjaGVzIjpbeyJhY3Rpb24iOiJyZXBsYWNlIiwiZG9jdW1lbnQiOnsicHVibGljS2V5cyI6W3siaWQiOiJkd24tc2lnIiwicHVibGljS2V5SndrIjp7ImNydiI6IkVkMjU1MTkiLCJrdHkiOiJPS1AiLCJ4IjoiekNhWERuZld6aFhRUkhrMXlFbGJCQWUxZFVaQ1NnU0FvOXlLNlVjZVdyRSJ9LCJwdXJwb3NlcyI6WyJhdXRoZW50aWNhdGlvbiJdLCJ0eXBlIjoiSnNvbldlYktleTIwMjAifSx7ImlkIjoiZHduLWVuYyIsInB1YmxpY0tleUp3ayI6eyJjcnYiOiJzZWNwMjU2azEiLCJrdHkiOiJFQyIsIngiOiI2azE5dm9vMXVabFJRb1VrakxLNWM4cXpSUkt1QmpKYkc4bnUzUnpRS0FJIiwieSI6Im0wR3cwVHdGMU5ZVlludG15cjJraU90WGZ5YXFaNk1UWDJsc01UMHB6ZncifSwicHVycG9zZXMiOlsia2V5QWdyZWVtZW50Il0sInR5cGUiOiJKc29uV2ViS2V5MjAyMCJ9XSwic2VydmljZXMiOlt7ImlkIjoiZHduIiwic2VydmljZUVuZHBvaW50Ijp7ImVuY3J5cHRpb25LZXlzIjpbIiNkd24tZW5jIl0sIm5vZGVzIjpbImh0dHBzOi8vZHduLnRiZGRldi5vcmcvZHduMyIsImh0dHBzOi8vZHduLnRiZGRldi5vcmcvZHduMSJdLCJzaWduaW5nS2V5cyI6WyIjZHduLXNpZyJdfSwidHlwZSI6IkRlY2VudHJhbGl6ZWRXZWJOb2RlIn1dfX1dLCJ1cGRhdGVDb21taXRtZW50IjoiRWlETHRhekRSb050YWtZeU5XbUtZcm9jajlSUXd1bmVtdzF6dXJkSDdlQXRfQSJ9LCJzdWZmaXhEYXRhIjp7ImRlbHRhSGFzaCI6IkVpQjR1RXQ4RFBlVGhzNWtfZWlZakpTY0FVZldqUTMwRmk5dU5JLWRZWlpHalEiLCJyZWNvdmVyeUNvbW1pdG1lbnQiOiJFaUNTTHVUaWdRUzBUUGhNVDZiN3JscXBrLWx3OTN1T3hOMzluTkFVS195Yk93In19",
-                    "rating": "9/10",
-                    "review": "436"
-
-                }
-            ]
+            "details" : {
+                "name" : "Golden Villa Suite",
+                "location": "James Street, Lagos",
+                "star": "3 stars",
+                "perNight": 20000,
+                "state": "Lagos",
+                "country": "Nigeria",
+                "image": "https://media.istockphoto.com/id/1454662719/photo/african-american-tourists-with-suitcases-in-front-of-the-rented-apartment.webp?b=1&s=170667a&w=0&k=20&c=0gDMkmXBYiwcQ3Gc9loQ7--kaN38Wb9UQWWSSw8czqE=",
+                "rating": "9/10",
+                "review": "436"
+            }
         }
-
-        console.log(hotelDetail)
+        
         const sendHotelDetail = async() => {
             try{
                 const { record }  = await web5.dwn.records.create({
@@ -134,7 +133,7 @@ const register = async() => {
                     return;
                 }
                 else {
-                    console.log("Hotel details sent to recipient");
+                    console.log("Hotel details sent to recipient DWN");
                 }
 
                 //https://developer.tbd.website/docs/web5/build/decentralized-web-nodes/send-to-dwn
@@ -147,7 +146,6 @@ const register = async() => {
         }
 
         await sendHotelDetail()
-        console.log('hello')
     }
 
     // await navigateTo('/hotel')
