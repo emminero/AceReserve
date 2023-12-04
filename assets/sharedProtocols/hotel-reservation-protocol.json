@@ -1,0 +1,48 @@
+{
+    "protocol": "https://universallyacceptedprotocol.com/hotelReservation",
+    "published": true,
+    "types": {
+        "bookedRooms": {
+            "schema": "https://hotelservice.com/schemas/bookedRooms",
+            "dataFormats": ["application/json"]
+        },
+        "emptyRooms": {
+            "schema": "https://hotelservice.com/schemas/emptyRooms",
+            "dataFormats": ["application/json"]
+        },
+        "images": {
+            "dataFormats": ["image/jpeg"]
+        },
+        "captions": {
+            "schema": "https://hotelservice.com/schemas/captions",
+            "dataFormats": ["text/plain"]
+        }
+    },
+    "structure": {
+        "bookedRooms": {
+            "$actions": [
+                { "who": "anyone", "can": "read" },
+                { "who": "author", "of": "bookedRooms", "can": "write" }
+            ]
+        },
+        "emptyRooms": {
+            "$actions": [
+                { "who": "anyone", "can": "read" },
+                { "who": "anyone", "can": "write" }
+                
+            ]
+        },
+        "images": {
+            "$actions": [
+                { "who": "anyone", "can": "read" },
+                { "who": "author", "of": "images", "can": "write" }
+            ]
+        },
+        "captions": {
+            "$actions": [
+                { "who": "anyone", "can": "read" },
+                { "who": "author", "of": "captions", "can": "write" }
+            ]
+        }
+    }
+}
