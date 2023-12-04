@@ -29,7 +29,7 @@
                 
             ]
         },
-        "hotelInformation": {
+        "hotelDetails": {
             "$actions": [
                 { "who": "anyone", "can": "read" },
                 { "who": "author", "of": "hotelDetails", "can": "write" }

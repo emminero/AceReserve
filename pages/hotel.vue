@@ -61,6 +61,7 @@ const sendEmptyRoom = async() => {
     }
 }
 
+
 async function createEmptyRoom()
 {
     await sendEmptyRoom()
