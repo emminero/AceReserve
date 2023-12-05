@@ -14,11 +14,14 @@
         </div>
 
 
-        <button class="bg-black  text-white px-6 py-2 my-5 text-semibold rounded-md inline-block">Get VC for a room</button>
+        <button @click="vc()" class="bg-black text-white px-6 py-2 my-5 text-semibold rounded-md inline-block">Get VC for a room</button>
     </div>
 </template>
 <script setup>
 import { ref } from 'vue';
+import { VerifiableCredential } from '@web5/credentials';
+import { DidDht, DidKeyMethod } from '@web5/dids';
+import { Ed25519 } from '@web5/crypto';
 import hotelReservationProtocol from '~/assets/sharedProtocols/hotel-reservation-protocol.json'
 
 const { $web5: web5, $myDID: myDID } = useNuxtApp();
@@ -50,14 +53,86 @@ const getEmptyRoom = async() => {
 
         console.log(empty.value[1]['data']['name'])
         emptyRooms.value = empty.value[1]
-        console.log(myDID)
     } catch (e) {
         console.error(e)
         return
     }
 }
 
-onBeforeMount(async () => {
-        await getEmptyRoom()
-    })
+// onBeforeMount(async () => {
+//         await getEmptyRoom()
+//     })
+
+    async function vc() {
+        const issuerDID = await DidKeyMethod.create()
+        const subjectDID = await DidKeyMethod.create()
+
+        let currentDate = new Date().toJSON().slice(0, 10);
+
+        function addDays(date, days) {
+            var result = new Date(date);
+            result.setDate(result.getDate() + days);
+            return result;
+        }
+
+        class BookedRoom{
+            constructor(detail, date) {
+                this.detail = detail
+                this.date = date
+            }
+       }
+        
+        //type, issuer, subject, data
+        const vc = VerifiableCredential.create({
+            type: 'bookedRooms',
+            issuer: issuerDID.did,
+            subject: subjectDID.did,
+            data: new BookedRoom('booked Room 4', currentDate)
+        })
+
+        const privateKey = issuerDID.keySet.verificationMethodKeys[0].privateKeyJwk
+
+        const signOptions = {
+            issuerDid: issuerDID.did,
+            subject: subjectDID.did,
+            kid: `${issuerDID.did}#${issuerDID.did.split(':')[2]}`,
+            signer: async (data) => await Ed25519.sign({ data, key: privateKey })            
+        }
+        
+        const vcJwt = await vc.sign(signOptions)
+
+        console.log(vcJwt)
+
+        try {
+            await VerifiableCredential.verify(vcJwt)
+            console.log("VC Verification successful!")
+        } catch (e) {
+            console.log("VC Verification failed: ${e.message}")
+        }
+
+        const parseVc = VerifiableCredential.parseJwt(vcJwt)
+
+        // console.log('\nParsed VC: \n' + parseVc.toString() + '\n')
+
+        const { record }  = await web5.dwn.records.create({
+            data: vcJwt,
+            message: {
+                dataFormat: 'application/vc+jwt',
+                schema: 'bookedRooms',
+            }
+        })
+
+        console.log('Record ID', record.id)
+
+        let { record: readRecord } = await web5.dwn.records.read({
+            message: {
+                filter: {
+                    recordId: record.id
+                }
+            }
+        })
+
+        const readVcJwt = await readRecord.data.text();
+        // console.log(readVcJwt)
+    }
 </script>
