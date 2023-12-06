@@ -54,7 +54,7 @@
                         </div>
                         <div class="w-1/2 h-1/2 pl-4 grid">
                             <div class="grid-area">
-                                <img class="object-fit w-full h-full" src="~/assets/images/about-us.jpg" alt="About Us Image">
+                                <img class="object-fit w-full h-fit" src="~/assets/images/about-us.jpg" alt="About Us Image">
                             </div>
                             <div class="grid-area items-end -mb-56 justify-end grid -mr-16">
                                 <img class="object-fit w-full h-fit" src="~/assets/images/about-us(1).jpg" alt="About Us Image">
@@ -65,8 +65,76 @@
             </section>
 
             <section>
-                <div>
-                    <h1>A Place like home with excessive comfort</h1>
+                <div class="w-5/6 mx-auto py-16">
+                    <h1 class="text-[56px] font-bold text-center">A Place like home with excessive comfort</h1>
+
+                    <div class="grid grid-cols-3 gap-x-10 justify-between my-10">
+                        <div>
+                            <div class="h-1/2">
+                                <img class="object-fit w-full h-full" src="~/assets/images/room.jpg" alt="About Us Image">
+                            </div>
+
+                            <div>
+                                <span class="text-[23px] font-medium my-5 block">Room & lounge</span>
+                            </div>
+
+                            <div class="pr-2">
+                                <p>
+                                    Lorem ipsum dolor sit amet consectetur. Ultricies vitae nec non fames volutpat arcu ut. At adipiscing mattis sit ac amet vulputate eu congue ultrices. Donec diam purus etiam 
+                                </p>
+                            </div>
+
+                            <div>
+                                <button class="py-3 px-6 bg-[#121201] box mt-8 text-white rounded-[20px] font-medium">
+                                    Book Now
+                                </button>
+                            </div>
+                        </div>
+
+                        <div>
+                            <div class="h-1/2">
+                                <img class="object-fit w-full h-full" src="~/assets/images/bedroom.jpg" alt="About Us Image">
+                            </div>
+
+                            <div>
+                                <span class="text-[23px] font-medium my-5 block">Bedroom only</span>
+                            </div>
+
+                            <div class="pr-2">
+                                <p>
+                                    Lorem ipsum dolor sit amet consectetur. Ultricies vitae nec non fames volutpat arcu ut. At adipiscing mattis sit ac amet vulputate eu congue ultrices. Donec diam purus etiam 
+                                </p>
+                            </div>
+
+                            <div>
+                                <button class="py-3 px-6 bg-[#121201] box mt-8 text-white rounded-[20px] font-medium">
+                                    Book Now
+                                </button>
+                            </div>
+                        </div>
+
+                        <div>
+                            <div class='h-1/2'>
+                                <img class="object-fit w-full h-full" src="~/assets/images/dinner.jpg" alt="About Us Image">
+                            </div>
+
+                            <div>
+                                <span class="text-[23px] font-medium my-5 block">Dinner only</span>
+                            </div>
+
+                            <div class="pr-2">
+                                <p>
+                                    Lorem ipsum dolor sit amet consectetur. Ultricies vitae nec non fames volutpat arcu ut. At adipiscing mattis sit ac amet vulputate eu congue ultrices. Donec diam purus etiam 
+                                </p>
+                            </div>
+
+                            <div>
+                                <button class="py-3 px-6 bg-[#121201] box mt-8 text-white rounded-[20px] font-medium">
+                                    Book Now
+                                </button>
+                            </div>
+                        </div>
+                    </div>
                 </div>
             </section>
         </main>
