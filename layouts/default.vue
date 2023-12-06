@@ -1,0 +1,48 @@
+<template>
+    <div>
+        <header>
+            <div class="w-11/12 mx-auto py-8 flex justify-between items-center">
+                <div>
+                    <p>AceReserve</p>
+                </div>
+                <div class="flex justify-between w-1/2 items-center">
+                    <nav>
+                        <ul class="flex space-x-10 items-center">
+                            <li>
+                                <NuxtLink>
+                                    Flight
+                                </NuxtLink>
+                            </li>
+                            <li>
+                                <NuxtLink>
+                                    Hotels
+                                </NuxtLink>
+                            </li>
+                            <li>
+                                <NuxtLink>
+                                    Car Hiring
+                                </NuxtLink>
+                            </li>
+                            <li>
+                                <NuxtLink>
+                                    E-Ticket
+                                </NuxtLink>
+                            </li>
+                        </ul>
+                    </nav>
+                    <div>
+                        <button class="bg-black text-white rounded-md px-6 py-2">
+                            Register
+                        </button>
+                    </div>
+                </div>
+            </div>
+        </header>
+
+        <slot />
+    </div>
+</template>
+
+<script setup>
+
+</script>
