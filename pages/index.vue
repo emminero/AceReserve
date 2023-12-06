@@ -137,6 +137,12 @@
                     </div>
                 </div>
             </section>
+
+            <section class="bg-[#121201]">
+                <div class="w-5/6 mx-auto py-16">
+                    <h1 class="text-[47px] font-semibold text-center text-white">Our service</h1>
+                </div>
+            </section>
         </main>
     </div>
 </template>
