@@ -140,7 +140,56 @@
 
             <section class="bg-[#121201]">
                 <div class="w-5/6 mx-auto py-16">
-                    <h1 class="text-[47px] font-semibold text-center text-white">Our service</h1>
+                    <div class="flex py-10 justify-between gap-x-3">
+                        <div class="w-2/5">
+                            <h1 class="text-5xl text-white font-medium leading-[70.5px]">Let ride you and your luggages</h1>
+                            <p class="tracking-wider mt-10 mb-5 text-white leading-[21px]">
+                                At Ace Reserve, we understand that the journey is just as important as the destination. That's why our luxury car rental service is meticulously designed to add a touch of sophistication to your travels. Embark on a road trip of a lifetime with our diverse and meticulously maintained fleet of luxury vehicles. From sleek sports cars to spacious SUVs, we offer a range of options to suit your preferences and needs.
+                            </p>
+                            <div>
+                                <button class="p-4 border text-white">Read More</button>
+                            </div>
+                            <div class="pt-20">
+                                <button class="bg-white rounded-[30px] w-3/5 py-4 text-[#121201] font-semibold text-xl">Hire us</button>
+                            </div>
+                        </div>
+
+                        <div class="w-3/5 h-[550px]">
+                            <div class="flex justify-between gap-x-10">
+                                <div>
+                                    <img class="object-fit w-full h-fit" src="~/assets/images/car-1.jpg" alt="AceReserve Services">
+                                </div>
+                                <div>
+                                    <img class="object-fit w-full h-fit" src="~/assets/images/car-2.jpg" alt="AceReserve Services">
+                                </div>
+                            </div>
+                           <div class="grid">
+                                <div class="flex justify-end -mt-10 mr-10">
+                                    <img class="object-fit w-[450px] h-fit" src="~/assets/images/car-3.jpg" alt="AceReserve Services">
+                                </div>
+                           </div>
+                        </div>
+                    </div>
+                </div>
+            </section>
+
+            <section class="relative">
+                <div class="py-16 mx-auto w-5/6">
+                    <div class="bg-black inset-0 absolute"></div>
+                    <div class="w-4/5 relative z-40">
+                        <h1 class="text-[58px] text-white leading-[87px] font-semibold">Take flight with us and enjoy our lifetime partnership</h1>
+                        <p class="my-8 pr-4 text-white text-2xl">Unleash your wanderlust with Ace Reserve's intuitive flight booking system. Discover a world of destinations at your fingertips and embark on your dream journey stress-free.</p>
+                        <button class="px-8 mt-4 font-medium text-xl bg-white rounded-[30px] py-4">Book now</button>
+                    </div>
+                </div>
+            </section>
+
+            <section>
+                <div class="py-16 w-5/6 mx-auto font-semibold">
+                    <h1 class="text-[47px]">Domestic and International Flight 24/7</h1>
+                    <div class="flex">
+                        
+                    </div>
                 </div>
             </section>
         </main>
