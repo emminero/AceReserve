@@ -22,10 +22,10 @@
                 <div class="absolute inset-0 bg-black opacity-70 z-30"></div>
                 <div class="w-5/6 mx-auto py-16 relative z-40">
                     <div class="w-4/5">
-                        <h1 class="text-[58px] font-bold text-white">Spend your time in your dream places, we fly the best</h1>
+                        <h1 class="text-[58px] font-bold text-white">Welcome to Ace Reserve: Your Gateway to Seamless Travel and Dining Experiences</h1>
                         <div class="w-4/5">
                             <p class="my-10 font-medium text-white tracking-widest">
-                                Lorem ipsum dolor sit amet consectetur. Interdum vulputate fermentum odio vitae nibh nulla ornare consequat. Bibendum vel ac egestas quis venenatis. Aliquam ac cras tristique risus eros eget. Tortor felis placerat sit lobortis. Mattis mattis ornare mattis suspendisse nunc dolor. Neque magna auctor nulla gravida. Elit scelerisque at dui et condimentum tortor eu sagittis. Mauris venenatis mauris ipsum consectetur egestas magna viverra eu donec. Nisi vulputate id feugiat nec. Velit volutpat.
+                                Are you planning your next adventure, a delightful dining experience, or looking to hit the road in style? Look no further – Ace Reserve is your go-to platform for effortless flight bookings, restaurant reservations, and car rentals.
                             </p>
                         </div>
                         <div>
@@ -35,19 +35,17 @@
                 </div>
             </section>
 
-            <section>
+            <section class="h-[800px]">
                 <div class="w-5/6 mx-auto py-16">
                     <h1 class="mb-10 text-[23px] font-medium">About Us</h1>
                     <div class="flex justify-between">
                         <div class="w-1/2">
                             <h1 class="text-[58px] leading-normal font-bold text-[#000]">
-                                We Are Here To Make Your Feeling Look More Elegant
+                                Ace Reserve the only booking and reservation App you need.
                             </h1>
-                            <p class="my-8">Lorem ipsum dolor sit amet consectetur. Orci eleifend ac gravida eleifend. Dignissim suspendisse aliquam velit id risus consequat. Viverra ridiculus bibendum urna metus ornare. Odio commodo amet eu ornare id proin proin proin. Eleifend viverra tellus cras vitae faucibus elit nunc hac. In platea eget et scelerisque. Quis in gravida habitasse tortor pretium ac non faucibus et. Id sit condimentum consectetur venenatis pretium. Egestas quis tellus pellentesque consequat nulla aliquam odio et. Scelerisque neque in ut sed in. Lectus egestas lorem vitae tellus dignissim eget. Sed diam semper sit enim leo pellentesque sollicitudin cursus.</p>
-
-                            <p class="my-8">Malesuada fermentum enim tellus id arcu arcu. Lacus aliquet donec duis habitasse. Nisl arcu libero elit commodo duis quam. Et placerat suscipit turpis ullamcorper sed. Imperdiet quis id mattis pharetra et massa donec. Lectus suscipit nibh orci morbi lectus egestas. Eu cras feugiat bibendum in nisl molestie elit id ut. Ipsum senectus quam orci velit..</p>
+                            <p class="my-8">Welcome to Ace Reserve, where we specialize in crafting exceptional moments. From seamless travel to exquisite dining, our passion is to redefine your experiences. With personalized service and a commitment to excellence, we're here to make your journey extraordinary. Your adventure starts with us.</p>
                             <div>
-                                <button class="bg-[#121201] rounded-[20px] px-6 py-3 font-medium text-sm text-white box">
+                                <button class="bg-[#121201] rounded-[20px] px-6 py-3 mt-20 font-medium text-sm text-white box">
                                     Get your Reservation
                                 </button>
                             </div>
@@ -80,7 +78,7 @@
 
                             <div class="pr-2">
                                 <p>
-                                    Lorem ipsum dolor sit amet consectetur. Ultricies vitae nec non fames volutpat arcu ut. At adipiscing mattis sit ac amet vulputate eu congue ultrices. Donec diam purus etiam 
+                                    Indulge in comfort in our thoughtfully designed rooms. Experience tranquility with neutral tones, enjoy a restful night on plush bedding, and appreciate the convenience of modern furnishings and amenities. 
                                 </p>
                             </div>
 
@@ -102,7 +100,8 @@
 
                             <div class="pr-2">
                                 <p>
-                                    Lorem ipsum dolor sit amet consectetur. Ultricies vitae nec non fames volutpat arcu ut. At adipiscing mattis sit ac amet vulputate eu congue ultrices. Donec diam purus etiam 
+                                    Discover tranquility in our stylish bedrooms. Soft, neutral tones create a calming atmosphere, while plush bedding ensures a restful night. Enjoy seamless amenities and personalized service for the ultimate retreat. Your serene escape awaits.
+
                                 </p>
                             </div>
 
@@ -124,7 +123,7 @@
 
                             <div class="pr-2">
                                 <p>
-                                    Lorem ipsum dolor sit amet consectetur. Ultricies vitae nec non fames volutpat arcu ut. At adipiscing mattis sit ac amet vulputate eu congue ultrices. Donec diam purus etiam 
+                                    Dine in style at our sophisticated restaurant. Enjoy gourmet delights, curated beverages, and attentive service in an elegant setting. A memorable culinary experience awaits you.
                                 </p>
                             </div>
 
