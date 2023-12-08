@@ -185,10 +185,19 @@
             </section>
 
             <section>
-                <div class="py-16 w-5/6 mx-auto font-semibold">
-                    <h1 class="text-[47px]">Domestic and International Flight 24/7</h1>
-                    <div class="flex">
-                        
+                <div class="py-16 w-5/6 mx-auto">
+                    <h1 class="text-[47px] font-semibold">Domestic and International Flight 24/7</h1>
+                    <div class="flex justify-between my-10">
+                        <div class="w-1/2 pr-8 py-2">
+                            <h1 class="text-2xl font-semibold">Discover a World of Destinations</h1>
+                            <p class="my-8">Navigate through a curated selection of destinations that span the globe. From exotic getaways to bustling metropolises, our platform opens the door to a world of possibilities.</p>
+                            <h1 class="text-2xl font-semibold">Travel Experience Tailored to Your Tastes</h1>
+                            <p class="my-8">Customize your travel experience with ease. Whether you're seeking cultural immersion, scenic landscapes, or vibrant city life, Ace Reserve allows you to tailor your journey to match your unique preferences.</p>
+                            <button class="p-4 border border-[#121201] text-[#121201]">Read More</button>
+                        </div>
+                        <div class="h-[450px]">
+                            <img class="object-fit w-full h-full" src="~/assets/images/flight.jpg" alt="AceReserve Flight Services">
+                        </div>
                     </div>
                 </div>
             </section>
