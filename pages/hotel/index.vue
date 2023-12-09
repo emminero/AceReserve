@@ -1,6 +1,6 @@
 <template>
     <div>
-        <section class="bg-gray-900">
+        <section class="bg-[#121201] ">
             <div class="w-5/6 mx-auto py-8">
                 <div class="grid grid-cols-4 gap-x-10 justify-between">
                     <div>
@@ -142,7 +142,7 @@
                                     <span class="text-2xl text-[#DB822F]">&#8358;80,000</span><span class="text-xs">/Per night</span>
                                 </div>
                                 <div class="flex h-4/5 items-end justify-end">
-                                    <button class="bg-[#DB822F] px-6 py-3 text-white font-medium">Book Now</button>
+                                    <NuxtLink to="/hotel/hotel-info" class="bg-[#DB822F] px-6 py-3 text-white font-medium">Book Now</NuxtLink>
                                 </div>
                             </div>
                         </div>
@@ -152,7 +152,7 @@
                             </div>
                             <div class="w-2/5">
                                 <div class="h-4/5"> 
-                                    <h1 class="text-2xl font-medium">Oriental Hotels and Suite</h1>
+                                    <h1 class="text-2xl font-medium">Sunshine Hotels and Suite</h1>
 
                                     <span class="text-sm">56 Taiwo Adeyanju close, Shomolu, Lagos state </span>
                                 </div>
@@ -168,7 +168,7 @@
                             </div>
                             <div class="w-1/3">
                                 <div class="flex h-1/5 items-end justify-end">
-                                    <span class="text-2xl text-[#DB822F]">&#8358;80,000</span><span class="text-xs">/Per night</span>
+                                    <span class="text-2xl text-[#DB822F]">&#8358;20,000</span><span class="text-xs">/Per night</span>
                                 </div>
                                 <div class="flex h-4/5 items-end justify-end">
                                     <button class="bg-[#DB822F] px-6 py-3 text-white font-medium">Book Now</button>
@@ -181,7 +181,7 @@
                             </div>
                             <div class="w-2/5">
                                 <div class="h-4/5"> 
-                                    <h1 class="text-2xl font-medium">Oriental Hotels and Suite</h1>
+                                    <h1 class="text-2xl font-medium">Ace Hotels</h1>
 
                                     <span class="text-sm">56 Taiwo Adeyanju close, Shomolu, Lagos state </span>
                                 </div>
@@ -197,7 +197,7 @@
                             </div>
                             <div class="w-1/3">
                                 <div class="flex h-1/5 items-end justify-end">
-                                    <span class="text-2xl text-[#DB822F]">&#8358;80,000</span><span class="text-xs">/Per night</span>
+                                    <span class="text-2xl text-[#DB822F]">&#8358;1,000,000</span><span class="text-xs">/Per night</span>
                                 </div>
                                 <div class="flex h-4/5 items-end justify-end">
                                     <button class="bg-[#DB822F] px-6 py-3 text-white font-medium">Book Now</button>
