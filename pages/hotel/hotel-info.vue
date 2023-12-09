@@ -9,7 +9,7 @@
         <section>
             <div class="w-5/6 mx-auto py-16">
                 <div class="flex justify-between">
-                    <div class="w-1/2 border">
+                    <div class="w-1/2 border rounded">
                         <div class="h-[400px]">
                             <img :src="room" width="600" height="600" class="object-fit" alt="Room Image">
                         </div>
@@ -24,7 +24,7 @@
                         </div>
                     </div>
                     <div class="w-1/3">
-                        <div class="py-4 px-3 border">
+                        <div class="py-4 px-3 border rounded-md">
                             <span class="text-center block text-lg font-semibold">Book rooms at Oriental Hotel and Suite</span>
                             <div class="pt-10 space-y-6 font-medium">
                                 <div>
@@ -52,7 +52,7 @@
                                     <input type="text" name="number" id="check-out" value="20000" class="block bg-[#121201] text-white w-full px-4 py-3">
                                 </div>
                                 <div class="pt-10">
-                                    <button class="w-full bg-[#DB822F] py-4 text-center font-medium text-white">Proceed</button>
+                                    <NuxtLink to="/checkout" class="w-full block bg-[#DB822F] rounded-[30px] py-3 text-center font-medium text-white">Proceed</NuxtLink>
                                 </div>
                             </div>
                         </div>
