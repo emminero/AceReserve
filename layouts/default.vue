@@ -7,7 +7,9 @@
         <header>
             <div class="w-11/12 mx-auto py-8 flex justify-between items-center">
                 <div>
-                    <p>AceReserve</p>
+                    <NuxtLink to="/">
+                        <p>AceReserve</p>
+                    </NuxtLink>
                 </div>
                 <div class="flex justify-between w-1/2 items-center">
                     <nav>
@@ -18,7 +20,7 @@
                                 </NuxtLink>
                             </li>
                             <li>
-                                <NuxtLink>
+                                <NuxtLink to="/hotel/">
                                     Hotels
                                 </NuxtLink>
                             </li>
