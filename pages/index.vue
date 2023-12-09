@@ -76,7 +76,7 @@
                                 <span class="text-[23px] font-medium my-5 block">Room & lounge</span>
                             </div>
 
-                            <div class="pr-2">
+                            <div class="pr-2 h-[170px]">
                                 <p>
                                     Indulge in comfort in our thoughtfully designed rooms. Experience tranquility with neutral tones, enjoy a restful night on plush bedding, and appreciate the convenience of modern furnishings and amenities. 
                                 </p>
@@ -98,7 +98,7 @@
                                 <span class="text-[23px] font-medium my-5 block">Bedroom only</span>
                             </div>
 
-                            <div class="pr-2">
+                            <div class="pr-2 h-[170px]">
                                 <p>
                                     Discover tranquility in our stylish bedrooms. Soft, neutral tones create a calming atmosphere, while plush bedding ensures a restful night. Enjoy seamless amenities and personalized service for the ultimate retreat. Your serene escape awaits.
 
@@ -121,7 +121,7 @@
                                 <span class="text-[23px] font-medium my-5 block">Dinner only</span>
                             </div>
 
-                            <div class="pr-2">
+                            <div class="pr-2 h-[170px]">
                                 <p>
                                     Dine in style at our sophisticated restaurant. Enjoy gourmet delights, curated beverages, and attentive service in an elegant setting. A memorable culinary experience awaits you.
                                 </p>
