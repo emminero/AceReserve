@@ -79,10 +79,7 @@ const register = async() => {
                 }
             });
 
-            if(userDID.value != myDID){
-                protocol.send(userDID.value)
-            }
-            protocol.send(myDID)
+            protocol.send(userDID)
 
             console.log('Protocol configured', configureStatus, protocol);
             alert('Successful registered and Hotel protocol successfully installed.')
@@ -92,60 +89,60 @@ const register = async() => {
 
         //Create Hotel Details
 
-        const hotelDetail = {
-            "@type" : "hotelDetails",
-            "details" : {
-                "name" : "Golden Villa Suite",
-                "location": "James Street, Lagos",
-                "star": "3 stars",
-                "perNight": 20000,
-                "state": "Lagos",
-                "country": "Nigeria",
-                "image": "https://media.istockphoto.com/id/1454662719/photo/african-american-tourists-with-suitcases-in-front-of-the-rented-apartment.webp?b=1&s=170667a&w=0&k=20&c=0gDMkmXBYiwcQ3Gc9loQ7--kaN38Wb9UQWWSSw8czqE=",
-                "rating": "9/10",
-                "review": "436"
-            }
-        }
+        // const hotelDetail = {
+        //     "@type" : "hotelDetails",
+        //     "details" : {
+        //         "name" : "Golden Villa Suite",
+        //         "location": "James Street, Lagos",
+        //         "star": "3 stars",
+        //         "perNight": 20000,
+        //         "state": "Lagos",
+        //         "country": "Nigeria",
+        //         "image": "https://media.istockphoto.com/id/1454662719/photo/african-american-tourists-with-suitcases-in-front-of-the-rented-apartment.webp?b=1&s=170667a&w=0&k=20&c=0gDMkmXBYiwcQ3Gc9loQ7--kaN38Wb9UQWWSSw8czqE=",
+        //         "rating": "9/10",
+        //         "review": "436"
+        //     }
+        // }
         
-        const sendHotelDetail = async() => {
-            try{
-                const { record }  = await web5.dwn.records.create({
-                    data: hotelDetail,
-                    message: {
-                        protocol: hotelReservationProtocol.protocol,
-                        protocolPath: 'hotelDetails',
-                        published: true,
-                        dataFormat: hotelReservationProtocol.types.hotelDetails.dataFormats[0],
-                        schema: hotelReservationProtocol.types.hotelDetails.schema,
-                    }
-                });
+        // const sendHotelDetail = async() => {
+        //     try{
+        //         const { record }  = await web5.dwn.records.create({
+        //             data: hotelDetail,
+        //             message: {
+        //                 protocol: hotelReservationProtocol.protocol,
+        //                 protocolPath: 'hotelDetails',
+        //                 published: true,
+        //                 dataFormat: hotelReservationProtocol.types.hotelDetails.dataFormats[0],
+        //                 schema: hotelReservationProtocol.types.hotelDetails.schema,
+        //             }
+        //         });
 
-                const result = await record.data.json()
-                const message = {
-                    record, result, id: record.id
-                }
+        //         const result = await record.data.json()
+        //         const message = {
+        //             record, result, id: record.id
+        //         }
 
-                //Sending the created information to myDID
-                const { status: sendStatus } = await record.send(userDID.value);
+        //         //Sending the created information to myDID
+        //         const { status: sendStatus } = await record.send(userDID.value);
 
-                if (sendStatus.code !== 202) {
-                    console.log("Unable to send to target did:" + sendStatus);
-                    return;
-                }
-                else {
-                    console.log("Hotel details sent to recipient DWN");
-                }
+        //         if (sendStatus.code !== 202) {
+        //             console.log("Unable to send to target did:" + sendStatus);
+        //             return;
+        //         }
+        //         else {
+        //             console.log("Hotel details sent to recipient DWN");
+        //         }
 
-                //https://developer.tbd.website/docs/web5/build/decentralized-web-nodes/send-to-dwn
+        //         //https://developer.tbd.website/docs/web5/build/decentralized-web-nodes/send-to-dwn
 
-                console.log("message:", message)
-            } catch (e) {
-                console.error(e);
-                return;
-            }
-        }
+        //         console.log("message:", message)
+        //     } catch (e) {
+        //         console.error(e);
+        //         return;
+        //     }
+        // }
 
-        await sendHotelDetail()
+        // await sendHotelDetail()
     }
 
     // await navigateTo('/hotel')
