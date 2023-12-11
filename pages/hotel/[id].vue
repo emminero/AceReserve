@@ -7,20 +7,68 @@
         </section>
 
         <section>
+            <div class="w-1/2 mx-auto">
+                <img :src="data['details']['image']" class="w-full" alt="A picture of this hotel">
+            </div>
+        </section>
+
+        <section>
             <div class="w-5/6 mx-auto py-16">
                 <div class="flex justify-between">
                     <div class="w-1/2 border rounded">
-                        <div class="h-[400px]">
-                            <img :src="room" width="600" height="600" class="object-fit" alt="Room Image">
+                        <div>
+                            <div class="border h-[420px]">
+                                <Splide :options="{ type:loop,autoplay:true,interval:2500,rewind:true}" aria-label="My Favorite Images">
+                                    <SplideSlide v-for="(images, index) in data['details']['images']" :key="index">
+                                        <img :src="images" class="w-full h-full" alt="hotel 1">
+                                    </SplideSlide>
+                                </Splide>
+                            </div>
+
+                            <div class="mt-5 flex justify-between">
+                                <button class="bg-[#121201] text-white px-6 py-3">View With AR</button>
+                                <button class="bg-[#121201] text-white px-6 py-3">Live Map</button>
+                            </div>
                         </div>  
                         <div class="mt-5">
-                            <ul class="px-4 space-y-4">
-                                <li>24 Hours Electricity</li>
-                                <li>Parking Lot</li>
-                                <li>Spa</li>
-                                <li>Security Guard</li>
-                                <li>WiFi Internet Access</li>
-                            </ul>
+                            <div class="px-4 space-y-4">
+                                <h1 class="text-center font-semibold text-lg">Details</h1>
+                                <div>
+                                    <span class="font-semibold">Location: </span><span>{{ data['details']['location'] }}, {{ data['details']['state'] }}, Nigeria</span>
+                                </div>
+                                <div>
+                                    <span class="font-semibold">Type: </span><span>{{ data['details']['type'] }}</span>
+                                </div>
+                                <div>
+                                    <span class="font-semibold">Rating: </span><span>{{ data['details']['rating'] }}</span>
+                                </div>
+                                <div>
+                                    <span class="font-semibold">Star: </span><span>{{ data['details']['star'] }} Stars</span>
+                                </div>
+                                <div>
+                                    <span class="font-semibold">Reviews: </span><span>{{ data['details']['review'] }} Reviews</span>
+                                </div>
+                                <h1 class="text-center font-semibold text-lg">Room Types</h1>
+                                <div v-for="(room, key) in  data['details']['roomTypes']" :key="key">
+                                    <span>{{ room['type']  }}: </span><span class="font-semibold text-sm">&#8358;{{ room['price'] }} ({{ room['availability'] ? 'Available' : 'Not Available' }})</span>
+                                </div>
+                                <h1 class="text-center font-semibold text-lg">Facilities</h1>
+                                <div>
+                                    <span>{{ data['details']['breakfast'] ? 'Breakfast Available' : '' }} </span>
+                                </div>
+                                <div>
+                                    <span>{{ data['details']['freeWifi'] ? 'FreeWifi Available' : '' }} </span>
+                                </div>
+                                <div>
+                                    <span>{{ data['details']['parkingLot'] ? 'Parking Lot Available' : '' }} </span>
+                                </div>
+                                <div>
+                                    <span>{{ data['details']['reception'] ? 'Reception Available' : '' }} </span>
+                                </div>
+                                <div>
+                                    <span>{{ data['details']['swimmingPool'] ? 'Swimming Pool Available' : '' }}  </span>
+                                </div>
+                            </div>
                         </div>
                     </div>
                     <div class="w-1/3">
@@ -65,6 +113,7 @@
 
 <script setup>
 import hotelReservationProtocol from '~/assets/sharedProtocols/hotel-reservation-protocol.json'
+import { Splide, SplideSlide } from '@splidejs/vue-splide';
 
 
 const { $web5: web5, $myDID: myDID } = useNuxtApp();
@@ -72,6 +121,7 @@ const room = ref('')
 const companyDID = ref('')
 const data = ref([])
 const dataReady = ref(false)
+
 
 room.value = 'https://images.unsplash.com/photo-1598928506311-c55ded91a20c?w=500&auto=format&fit=crop&q=60&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxzZWFyY2h8OHx8cm9vbXxlbnwwfHwwfHx8MA%3D%3D'
 const { id } = useRoute().params
