@@ -173,7 +173,7 @@
                                     <span class="text-2xl text-[#DB822F]">&#8358;80,000</span><span class="text-xs">/Per night</span>
                                 </div>
                                 <div class="flex h-4/5 items-end justify-end">
-                                    <NuxtLink to="/hotel/hotel-info" class="bg-[#DB822F] px-6 py-3 text-white font-medium">Book Now</NuxtLink>
+                                    <NuxtLink :to="'/hotel/' + hotel['id']" class="bg-[#DB822F] px-6 py-3 text-white font-medium">Book Now</NuxtLink>
                                 </div>
                             </div>
                         </div>
@@ -311,4 +311,16 @@ const getRecords = async() => {
 async function search() {
     await getRecords()
 }
+
+function slugify(str) {
+  return String(str)
+    .normalize('NFKD') // split accented characters into their base characters and diacritical marks
+    .replace(/[\u0300-\u036f]/g, '') // remove all the accents, which happen to be all in the \u03xx UNICODE block.
+    .trim() // trim leading or trailing whitespace
+    .toLowerCase() // convert to lowercase
+    .replace(/[^a-z0-9 -]/g, '') // remove non-alphanumeric characters
+    .replace(/\s+/g, '-') // replace spaces with hyphens
+    .replace(/-+/g, '-'); // remove consecutive hyphens
+}
+
 </script>
