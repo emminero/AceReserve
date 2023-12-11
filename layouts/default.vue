@@ -37,7 +37,7 @@
                         </ul>
                     </nav>
                     <div>
-                        <NuxtLink to="register" class="bg-black text-white rounded-md px-6 py-2">
+                        <NuxtLink to="/register" class="bg-black text-white rounded-md px-6 py-2">
                             Register
                         </NuxtLink>
                     </div>

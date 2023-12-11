@@ -6,12 +6,12 @@
             "schema": "https://hotelservice.com/schemas/bookedRooms",
             "dataFormats": ["application/json"]
         },
-        "emptyRooms": {
-            "schema": "https://hotelservice.com/schemas/emptyRooms",
+        "availableRooms": {
+            "schema": "https://hotelservice.com/schemas/availableRooms",
             "dataFormats": ["application/json"]
         },
         "hotelDetails": {
-            "schema": "https://hotelservice.com/schemas/emptyRooms",
+            "schema": "https://hotelservice.com/schemas/hotelDetails",
             "dataFormats": ["application/json"]
         }
     },
@@ -19,20 +19,21 @@
         "bookedRooms": {
             "$actions": [
                 { "who": "anyone", "can": "read" },
-                { "who": "author", "of": "bookedRooms", "can": "write" }
+                { "who": "author", "of": "bookedRooms", "can": "write" },
+                { "who": "recipient", "of": "bookedRooms", "can": "write" }
             ]
         },
-        "emptyRooms": {
+        "availableRooms": {
             "$actions": [
                 { "who": "anyone", "can": "read" },
-                { "who": "anyone", "can": "write" }
+                { "who": "author", "of": "availableRooms", "can": "write" }
                 
             ]
         },
         "hotelDetails": {
             "$actions": [
                 { "who": "anyone", "can": "read" },
-                { "who": "anyone", "can": "write" }
+                { "who": "author", "of": "hotelDetails", "can": "write" }
             ]
         }
     }

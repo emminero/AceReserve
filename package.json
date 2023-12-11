@@ -18,7 +18,9 @@
     "vue-router": "^4.2.5"
   },
   "dependencies": {
-    "@web5/api": "^0.8.2",
+    "@splidejs/splide": "^4.1.4",
+    "@splidejs/vue-splide": "^0.6.12",
+    "@web5/api": "^0.8.3",
     "@web5/credentials": "^0.3.2",
     "@web5/crypto": "^0.2.3",
     "@web5/dids": "^0.2.2"
