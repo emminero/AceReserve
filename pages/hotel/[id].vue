@@ -18,7 +18,7 @@
                     <div class="w-1/2 border rounded">
                         <div>
                             <div class="border h-[420px]">
-                                <Splide :options="{ type:loop,autoplay:true,interval:2500,rewind:true}" aria-label="My Favorite Images">
+                                <Splide :options="{ type:'loop',autoplay:true,interval:2500,rewind:true}" aria-label="My Favorite Images">
                                     <SplideSlide v-for="(images, index) in data['details']['images']" :key="index">
                                         <img :src="images" class="w-full h-full" alt="hotel 1">
                                     </SplideSlide>
@@ -74,35 +74,38 @@
                     <div class="w-1/3">
                         <div class="py-4 px-3 border rounded-md">
                             <span class="text-center block text-lg font-semibold">Book rooms at Oriental Hotel and Suite</span>
-                            <div class="pt-10 space-y-6 font-medium">
+                            <form @submit.prevent="submit" class="pt-10 space-y-6 font-medium">
                                 <div>
                                     <label for="check-in">Check-in</label>
-                                    <input type="date" name="date" id="check-in" class="block bg-[#121201] text-white w-full px-4 py-3">
+                                    <input v-model="checkIn" type="date" name="date" id="check-in" class="block bg-[#121201] text-white w-full px-4 py-3">
                                 </div>
                                 <div>
                                     <label for="check-out">Check-out</label>
-                                    <input type="date" name="date" id="check-out" class="block bg-[#121201] text-white w-full px-4 py-3">
+                                    <input v-model="checkOut" type="date" name="date" id="check-out" class="block bg-[#121201] text-white w-full px-4 py-3">
                                 </div>
                                 <div>
-                                    <label for="check-out">Number of rooms</label>
-                                    <input type="number" name="number" id="check-out" value="1" class="block bg-[#121201] text-white w-full px-4 py-3">
+                                    <h1 class="font-semibold">Room Type</h1>
+                                    <div class="space-x-2" v-for="(room, key) in  data['details']['roomTypes']" :key="key">
+                                        <input @click="checked()" type="checkbox" :id="room['type']" v-model="checkedRooms" :value="room['type']" name="roomType">
+                                        <label :for="room['type']">{{ room['type'] }}</label>
+                                    </div>
+                                </div>
+                                <div v-for="(check, index) in checkedRooms" :key="index">
+                                    <label for="check-out">Number of rooms for {{ check }}</label>
+                                    <input type="number" min="1" max="10" name="number" id="check-out"  v-model="numberOfRooms[index]" class="block bg-[#121201] text-white w-full px-4 py-3">
                                 </div>
                                 <div>
-                                    <label for="check-out">Number of People</label>
-                                    <input type="number" name="number" id="check-out" value="1" class="block bg-[#121201] text-white w-full px-4 py-3">
+                                    <label for="userDID">DID</label>
+                                    <input v-model="userDID" type="text" placeholder="Input your DID"  id="userDJD"  class="block bg-[#121201] text-white w-full px-4 py-3">
                                 </div>
                                 <div>
-                                    <label for="check-out">Email (Optional)</label>
-                                    <input type="email" name="number" id="check-out" value="james@example.com" class="block bg-[#121201] text-white w-full px-4 py-3">
-                                </div>
-                                <div>
-                                    <label for="check-out">Amount</label>
-                                    <input type="text" name="number" id="check-out" value="20000" class="block bg-[#121201] text-white w-full px-4 py-3">
+                                    <label for="email">Email (Optional)</label>
+                                    <input v-model="email" type="email" id="email" class="block bg-[#121201] text-white w-full px-4 py-3">
                                 </div>
                                 <div class="pt-10">
-                                    <NuxtLink to="/checkout" class="w-full block bg-[#DB822F] rounded-[30px] py-3 text-center font-medium text-white">Proceed</NuxtLink>
+                                    <input type="submit" class="w-full block bg-[#DB822F] rounded-[30px] py-3 text-center font-medium text-white" value="Proceed">
                                 </div>
-                            </div>
+                            </form>
                         </div>
                     </div>
                 </div>
@@ -121,7 +124,13 @@ const room = ref('')
 const companyDID = ref('')
 const data = ref([])
 const dataReady = ref(false)
-
+const checkIn = ref(new Date().toISOString().slice(0, 10))
+const checkOut = ref(new Date().toISOString().slice(0, 10))
+const checkedRooms = ref([])
+const numberOfRooms = ref([])
+const email = ref('example@email.com')
+const userDID = ref('')
+const totalPrice = ref(0)
 
 room.value = 'https://images.unsplash.com/photo-1598928506311-c55ded91a20c?w=500&auto=format&fit=crop&q=60&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxzZWFyY2h8OHx8cm9vbXxlbnwwfHwwfHx8MA%3D%3D'
 const { id } = useRoute().params
@@ -158,6 +167,31 @@ onBeforeMount(async () => {
         })
     }
 })
+
+//
+function checked() {
+    setTimeout(() => {
+        checkedRooms.value.forEach((element, index) => {
+            numberOfRooms.value[index] = 1
+        });
+    }, 50);
+
+    return
+}
+
+
+
+//To get the total price, we write some conditions.
+function submit(){
+    totalPrice.value = 0
+    data.value['details']['roomTypes'].forEach(element => {
+        checkedRooms.value.forEach((check, index) => {
+            if(check == element['type']) totalPrice.value += Number(element['price']) * Number(numberOfRooms.value[index])
+        });
+    });
+
+    console.log(totalPrice.value)
+}
 </script>
 
 <style scoped>
