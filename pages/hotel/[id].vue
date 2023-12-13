@@ -15,7 +15,7 @@
         <section>
             <div class="w-5/6 mx-auto py-16">
                 <div class="flex justify-between">
-                    <div class="w-1/2 border rounded">
+                    <div class="w-1/2 rounded">
                         <div>
                             <div class="border h-[420px]">
                                 <Splide :options="{ type:'loop',autoplay:true,interval:2500,rewind:true}" aria-label="My Favorite Images">
@@ -30,7 +30,7 @@
                                 <button class="bg-[#121201] text-white px-6 py-3">Live Map</button>
                             </div>
                         </div>  
-                        <div class="mt-5">
+                        <div class="mt-5 border">
                             <div class="px-4 space-y-4">
                                 <h1 class="text-center font-semibold text-lg">Details</h1>
                                 <div>
@@ -77,26 +77,26 @@
                             <form @submit.prevent="submit" class="pt-10 space-y-6 font-medium">
                                 <div>
                                     <label for="check-in">Check-in</label>
-                                    <input v-model="checkIn" type="date" name="date" id="check-in" class="block bg-[#121201] text-white w-full px-4 py-3">
+                                    <input v-model="checkIn" type="date" name="date" id="check-in" class="block bg-[#121201] text-white w-full px-4 py-3" required>
                                 </div>
                                 <div>
                                     <label for="check-out">Check-out</label>
-                                    <input v-model="checkOut" type="date" name="date" id="check-out" class="block bg-[#121201] text-white w-full px-4 py-3">
+                                    <input v-model="checkOut" type="date" name="date" id="check-out" class="block bg-[#121201] text-white w-full px-4 py-3" required>
                                 </div>
                                 <div>
                                     <h1 class="font-semibold">Room Type</h1>
                                     <div class="space-x-2" v-for="(room, key) in  data['details']['roomTypes']" :key="key">
-                                        <input @click="checked()" type="checkbox" :id="room['type']" v-model="checkedRooms" :value="room['type']" name="roomType">
+                                        <input @click="checked()" type="checkbox" :id="room['type']" v-model="checkedRooms" :value="room['type']" name="roomType" >
                                         <label :for="room['type']">{{ room['type'] }}</label>
                                     </div>
                                 </div>
                                 <div v-for="(check, index) in checkedRooms" :key="index">
                                     <label for="check-out">Number of rooms for {{ check }}</label>
-                                    <input type="number" min="1" max="10" name="number" id="check-out"  v-model="numberOfRooms[index]" class="block bg-[#121201] text-white w-full px-4 py-3">
+                                    <input type="number" min="1" max="10" name="number" id="check-out"  v-model="numberOfRooms[index]" class="block bg-[#121201] text-white w-full px-4 py-3" required>
                                 </div>
                                 <div>
                                     <label for="userDID">DID</label>
-                                    <input v-model="userDID" type="text" placeholder="Input your DID"  id="userDJD"  class="block bg-[#121201] text-white w-full px-4 py-3">
+                                    <input v-model="userDID" type="text" placeholder="Input your DID"  id="userDID"  class="block bg-[#121201] text-white w-full px-4 py-3" required>
                                 </div>
                                 <div>
                                     <label for="email">Email (Optional)</label>
@@ -106,6 +106,50 @@
                                     <input type="submit" class="w-full block bg-[#DB822F] rounded-[30px] py-3 text-center font-medium text-white" value="Proceed">
                                 </div>
                             </form>
+                        </div>
+
+                        <div class="w-full mt-10" v-show="showConfirmation">
+                            <div>
+                                <h1 class="text-2xl font-semibold mb-2">Confirm your booking Details</h1>
+                                <div class="p-4 border rounded-lg">
+                                    <div class="border-b py-3">
+                                        <span class="block mb-3 text-[#989897] text-sm">Hotel Name</span>
+                                        <span class="block text-[#121201]">{{ data['details']['name'] }}</span>
+                                    </div>
+                                    <div class="border-b py-3">
+                                        <span class="block mb-3 text-[#989897] text-sm">Rooms Booked</span>
+                                        <div class="flex justify-between">
+                                            <div>
+                                                <span class="block mt-3 text-[#121201]" v-for="(room, index) in checkedRooms" :key="index">
+                                                    {{ room }}
+                                                </span>
+                                            </div>
+                                            <div>
+                                                <span class="block mt-3" v-for="(roomNo, key) in numberOfRooms" :key="key">
+                                                    {{ roomNo }}
+                                                </span>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="border-b py-3">
+                                        <span class="block mb-3 text-[#989897] text-sm">Check-in date</span>
+                                        <span class="block text-[#121201]">{{ checkIn }}</span>
+                                    </div>
+                                    <div class="border-b py-3">
+                                        <span class="block mb-3 text-[#989897] text-sm">Check-out date</span>
+                                        <span class="block text-[#121201]">{{ checkOut }}</span>
+                                    </div>
+                                    <div class="border-b py-3">
+                                        <span class="block mb-3 text-[#989897] text-sm">Amount to be paid</span>
+                                        <span class="block text-[#121201]">{{ totalPrice }}</span>
+                                    </div>
+                                </div>
+                                <div class="pt-10">
+                                    <button @click="pay" class="w-1/3 text-white rounded-[30px] py-2 bg-[#121201]">
+                                        Pay
+                                    </button>
+                                </div>
+                            </div>
                         </div>
                     </div>
                 </div>
@@ -131,6 +175,7 @@ const numberOfRooms = ref([])
 const email = ref('example@email.com')
 const userDID = ref('')
 const totalPrice = ref(0)
+const showConfirmation = ref(false)
 
 room.value = 'https://images.unsplash.com/photo-1598928506311-c55ded91a20c?w=500&auto=format&fit=crop&q=60&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxzZWFyY2h8OHx8cm9vbXxlbnwwfHwwfHx8MA%3D%3D'
 const { id } = useRoute().params
@@ -190,7 +235,29 @@ function submit(){
         });
     });
 
-    console.log(totalPrice.value)
+    showConfirmation.value = true
+}
+
+async function pay() {
+    const confirmation = confirm('Are you sure you want to make payment for '+ userDID.value)
+    if(confirmation){
+        let currentDate = new Date().toJSON().slice(0, 10);  
+        
+        const details = {
+            "name": "",
+            "roomBooked" : [''],
+            "checkIn": ""
+        }
+
+        class BookedRoom{
+            constructor(detail, date) {
+                this.detail = detail
+                this.date = date
+            }
+       }
+
+       console.log(new BookedRoom(details, currentDate))
+    }
 }
 </script>
 
