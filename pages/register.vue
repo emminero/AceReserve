@@ -4,12 +4,9 @@
             <select v-model="services" name="services" id="services" class="bg-black text-white px-4 py-2 rounded-md">
                 <option value="" disabled>Select an option</option>
                 <option value="hotel">Hotel Reservation</option>
-                <option value="car">Car Rental</option>
                 <option value="flight">Flight Reservation</option>
-                <option value="ticket">Ticket</option>
             </select>
 
-            <textarea v-model="userDID" class="border border-black rounded-sm mt-2 w-full h-3/5 p-2 block" placeholder="Input your DID"></textarea>
             <input type="text" name="recordID" class="border border-black rounded-sm mt-2 w-full p-2 block" placeholder="Input record ID of your hotel details" id="">
             <p class="text-md text-center font-semibold text-red-600">{{ error }}</p>
             <button @click="register" class="bg-black text-white mt-2 inline py-2 ">Register</button>
@@ -32,7 +29,6 @@ import hotelReservationProtocol from '~/assets/sharedProtocols/hotel-reservation
 const { $web5: web5, $myDID: myDID } = useNuxtApp();
 const services = ref('')
 const error = ref('')
-const userDID = ref('')
 
 const copyDID = async() => {
     await navigator.clipboard.writeText(myDID);
@@ -45,7 +41,6 @@ function isEmpty(string) {
 
 const register = async() => {
     if(isEmpty(services.value)) return error.value = "Select a service"
-    else if(isEmpty(userDID.value)) return error.value = "Input your DID"
 
     if(services.value == 'hotel'){
         //Installing a protocol to my DWN and anybodies DWN.
@@ -87,65 +82,8 @@ const register = async() => {
 
         await configureProtocol()
 
-        //Create Hotel Details
-
-        // const hotelDetail = {
-        //     "@type" : "hotelDetails",
-        //     "details" : {
-        //         "name" : "Golden Villa Suite",
-        //         "location": "James Street, Lagos",
-        //         "star": "3 stars",
-        //         "perNight": 20000,
-        //         "state": "Lagos",
-        //         "country": "Nigeria",
-        //         "image": "https://media.istockphoto.com/id/1454662719/photo/african-american-tourists-with-suitcases-in-front-of-the-rented-apartment.webp?b=1&s=170667a&w=0&k=20&c=0gDMkmXBYiwcQ3Gc9loQ7--kaN38Wb9UQWWSSw8czqE=",
-        //         "rating": "9/10",
-        //         "review": "436"
-        //     }
-        // }
         
-        // const sendHotelDetail = async() => {
-        //     try{
-        //         const { record }  = await web5.dwn.records.create({
-        //             data: hotelDetail,
-        //             message: {
-        //                 protocol: hotelReservationProtocol.protocol,
-        //                 protocolPath: 'hotelDetails',
-        //                 published: true,
-        //                 dataFormat: hotelReservationProtocol.types.hotelDetails.dataFormats[0],
-        //                 schema: hotelReservationProtocol.types.hotelDetails.schema,
-        //             }
-        //         });
-
-        //         const result = await record.data.json()
-        //         const message = {
-        //             record, result, id: record.id
-        //         }
-
-        //         //Sending the created information to myDID
-        //         const { status: sendStatus } = await record.send(userDID.value);
-
-        //         if (sendStatus.code !== 202) {
-        //             console.log("Unable to send to target did:" + sendStatus);
-        //             return;
-        //         }
-        //         else {
-        //             console.log("Hotel details sent to recipient DWN");
-        //         }
-
-        //         //https://developer.tbd.website/docs/web5/build/decentralized-web-nodes/send-to-dwn
-
-        //         console.log("message:", message)
-        //     } catch (e) {
-        //         console.error(e);
-        //         return;
-        //     }
-        // }
-
-        // await sendHotelDetail()
     }
-
-    // await navigateTo('/hotel')
 }
 
 //Create Hotel Details

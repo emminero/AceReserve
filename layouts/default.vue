@@ -25,8 +25,8 @@
                                 </NuxtLink>
                             </li>
                             <li>
-                                <NuxtLink>
-                                    Car Hiring
+                                <NuxtLink to="/act-as-a-service">
+                                    Act as Service
                                 </NuxtLink>
                             </li>
                             <li>
