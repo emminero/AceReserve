@@ -13,7 +13,7 @@
 
             <hr class="border mt-10">
             <div class="flex flex-col">
-                <p class="text-sm text-center mt-1">For the purpose of this project, you can act as a service provider. Wait for few seconds for your did to generate</p>
+                <p class="text-sm text-center mt-1">For the purpose of this project, <NuxtLink to="/act-as-a-service" class="text-blue-600 underline">you can act as a service provider</NuxtLink>. Wait for few seconds for your did to generate</p>
                 <p v-show="!myDID" class="text-green-600 text-center font-bold">Generating/getting your DID....</p>
                 <button v-show="myDID" @click="copyDID()" class="bg-black text-white mt-2 w-3/5 py-2 mx-auto">Copy your generated DID</button>
             </div>

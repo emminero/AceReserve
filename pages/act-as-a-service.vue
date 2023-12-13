@@ -3,6 +3,7 @@
         <div class="w-full md:w-1/2 flex flex-col justify-center p-4 h-[500px]">
             <textarea v-model="myDID" class="border border-black rounded-sm mt-2 w-full h-3/5 p-2 block" placeholder="Input your DID"></textarea>
             <p class="text-md text-center font-semibold text-red-600">{{ error }}</p>
+            <p class="text-sm mt-2">Click to get a demo record ID</p>
             <button @click="getRecord" class="bg-black text-white mt-2 inline py-2 ">Get Record Id</button>
 
             <hr class="border mt-10">
