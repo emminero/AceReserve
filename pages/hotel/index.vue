@@ -295,8 +295,6 @@ const getRecords = async() => {
             }
         });
 
-        // console.log(records)
-
         for (let record of records) {
             const data = await record.data.json();
             const list = { data, id: record.id};

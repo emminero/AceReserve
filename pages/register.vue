@@ -7,7 +7,7 @@
                 <option value="flight">Flight Reservation</option>
             </select>
 
-            <input type="text" name="recordID" class="border border-black rounded-sm mt-2 w-full p-2 block" placeholder="Input record ID of your hotel details" id="">
+            <input type="text" v-model="userRecordId" class="border border-black rounded-sm mt-2 w-full p-2 block" placeholder="Input record ID of your hotel details" required>
             <p class="text-md text-center font-semibold text-red-600">{{ error }}</p>
             <button @click="register" class="bg-black text-white mt-2 inline py-2 ">Register</button>
 
@@ -29,6 +29,8 @@ import hotelReservationProtocol from '~/assets/sharedProtocols/hotel-reservation
 const { $web5: web5, $myDID: myDID } = useNuxtApp();
 const services = ref('')
 const error = ref('')
+const userRecordId = ref('')
+const companyDID = ref('')
 
 const copyDID = async() => {
     await navigator.clipboard.writeText(myDID);
@@ -38,6 +40,8 @@ const copyDID = async() => {
 function isEmpty(string) {
   return typeof string === 'string' && string.length === 0;
 }
+
+companyDID.value = "did:ion:EiDJbML7UODRf_T_gjJJxiHSo1K9HY5FBSk3tWWU8z9rdg:eyJkZWx0YSI6eyJwYXRjaGVzIjpbeyJhY3Rpb24iOiJyZXBsYWNlIiwiZG9jdW1lbnQiOnsicHVibGljS2V5cyI6W3siaWQiOiJkd24tc2lnIiwicHVibGljS2V5SndrIjp7ImNydiI6IkVkMjU1MTkiLCJrdHkiOiJPS1AiLCJ4IjoiYXhSTFVTZ25SeVJjX3VhWWs5RTFHWlNIZmItSVhsQUhjTlpEOXFSeE1POCJ9LCJwdXJwb3NlcyI6WyJhdXRoZW50aWNhdGlvbiJdLCJ0eXBlIjoiSnNvbldlYktleTIwMjAifSx7ImlkIjoiZHduLWVuYyIsInB1YmxpY0tleUp3ayI6eyJjcnYiOiJzZWNwMjU2azEiLCJrdHkiOiJFQyIsIngiOiJIQ1Y0Rmx2c0l1OUZXRy1hSnQ2cDlSRm9LV19kX3BNN1N6cXR2c25iZWFjIiwieSI6ImQ5aExqbVRfdDlBSTRpUkhibEFTRG5jWkZBYTYzcjFRN0JKRklsdFkycTQifSwicHVycG9zZXMiOlsia2V5QWdyZWVtZW50Il0sInR5cGUiOiJKc29uV2ViS2V5MjAyMCJ9XSwic2VydmljZXMiOlt7ImlkIjoiZHduIiwic2VydmljZUVuZHBvaW50Ijp7ImVuY3J5cHRpb25LZXlzIjpbIiNkd24tZW5jIl0sIm5vZGVzIjpbImh0dHBzOi8vZHduLnRiZGRldi5vcmcvZHduMSIsImh0dHBzOi8vZHduLnRiZGRldi5vcmcvZHduMiJdLCJzaWduaW5nS2V5cyI6WyIjZHduLXNpZyJdfSwidHlwZSI6IkRlY2VudHJhbGl6ZWRXZWJOb2RlIn1dfX1dLCJ1cGRhdGVDb21taXRtZW50IjoiRWlCRkFKb2ktdEcwUVRuNWtnbFpIQ25rNFJJWnc1NWd1RThoM0RkVnZrbk8zdyJ9LCJzdWZmaXhEYXRhIjp7ImRlbHRhSGFzaCI6IkVpRGZ0dndrakU5dlN0bTF2WkNnSV96SDNKNFYydVdiYVNMcDVrclk1YmFkelEiLCJyZWNvdmVyeUNvbW1pdG1lbnQiOiJFaUJfVFRVSFdpVVI4TXBwV2FBaEFsNmZFLXZTM2VPTXhDdVhOOE1tMGt3SjBRIn19"
 
 const register = async() => {
     if(isEmpty(services.value)) return error.value = "Select a service"
@@ -63,7 +67,6 @@ const register = async() => {
             // if the protocol already exists, we return
             if(protocols.length > 0) {
                 console.log('Protocol already exists');
-                alert('Hotel protocol already exist but successfully registered to our application.')
                 return;
             }
 
@@ -77,12 +80,41 @@ const register = async() => {
             protocol.send(userDID)
 
             console.log('Protocol configured', configureStatus, protocol);
-            alert('Successful registered and Hotel protocol successfully installed.')
         }
 
         await configureProtocol()
 
+        const getAndSendRecord = async() => {
+            console.log(userRecordId.value)
+            try{
+                // Reads the indicated record from the user's DWNs
+                let { record } = await web5.dwn.records.read({
+                    message: {
+                        filter: {
+                            recordId: userRecordId.value,
+                        },
+                    },
+                });
+
+                // console.log(await record.data.json())
+                // Sending the created information to myDID
+                const { status: sendStatus } = await record.send(companyDID.value);
+
+                if (sendStatus.code !== 202) {
+                    console.log("Unable to send to target did:" + JSON.stringify(sendStatus));
+                    return;
+                }
+                else {
+                    console.log("Record details sent to Companies DWN");
+                }
+            } catch (e) {
+                console.error(e);
+                return;
+            }
+        }
         
+        await getAndSendRecord()
+
     }
 }
 
