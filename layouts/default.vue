@@ -30,8 +30,8 @@
                                 </NuxtLink>
                             </li>
                             <li>
-                                <NuxtLink>
-                                    E-Ticket
+                                <NuxtLink to="/check-bookings">
+                                    Check Bookings
                                 </NuxtLink>
                             </li>
                         </ul>

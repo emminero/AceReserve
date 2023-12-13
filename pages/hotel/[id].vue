@@ -160,6 +160,9 @@
 
 <script setup>
 import hotelReservationProtocol from '~/assets/sharedProtocols/hotel-reservation-protocol.json'
+import { VerifiableCredential } from '@web5/credentials';
+import { DidDht, DidKeyMethod } from '@web5/dids';
+import { Ed25519 } from '@web5/crypto';
 import { Splide, SplideSlide } from '@splidejs/vue-splide';
 
 
@@ -176,6 +179,7 @@ const email = ref('example@email.com')
 const userDID = ref('')
 const totalPrice = ref(0)
 const showConfirmation = ref(false)
+const roomDetails = ref([])
 
 room.value = 'https://images.unsplash.com/photo-1598928506311-c55ded91a20c?w=500&auto=format&fit=crop&q=60&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxzZWFyY2h8OHx8cm9vbXxlbnwwfHwwfHx8MA%3D%3D'
 const { id } = useRoute().params
@@ -242,11 +246,20 @@ async function pay() {
     const confirmation = confirm('Are you sure you want to make payment for '+ userDID.value)
     if(confirmation){
         let currentDate = new Date().toJSON().slice(0, 10);  
+
+        checkedRooms.value.forEach((element, index) => {
+            roomDetails.value.push({"type" : element, "numberOfRoom" : numberOfRooms.value[index]})
+        });
         
         const details = {
             "name": "",
-            "roomBooked" : [''],
-            "checkIn": ""
+            "userDID": userDID.value,
+            "bookedBy": companyDID.value,
+            "hotelDID": "null",
+            "roomBooked" : roomDetails,
+            "checkIn": checkIn.value,
+            "checkOut": checkOut.value,
+            "amount" : totalPrice.value
         }
 
         class BookedRoom{
@@ -256,7 +269,80 @@ async function pay() {
             }
        }
 
-       console.log(new BookedRoom(details, currentDate))
+       const hotelVC = VerifiableCredential.create({
+            type: 'bookedRooms',
+            issuer: companyDID.value,
+            subject: userDID.value,
+            data: new BookedRoom(details, currentDate),
+        })
+
+        const issuerDID = await DidKeyMethod.create()
+        const privateKey = issuerDID.keySet.verificationMethodKeys[0].privateKeyJwk
+
+        //    console.log(new BookedRoom(details, currentDate))
+        const signOptions = {
+            issuerDid: issuerDID.did,
+            subject: userDID.value,
+            kid: `${issuerDID.did}#${issuerDID.did.split(':')[2]}`,
+            signer: async (data) => await Ed25519.sign({ data, key: privateKey })            
+        }
+
+        const hotelVCJwt = await hotelVC.sign(signOptions)
+
+        try {
+            await VerifiableCredential.verify(hotelVCJwt)
+            console.log("VC Verification successful!")
+        } catch (e) {
+            console.log(e)
+        }
+
+        const parseVc = VerifiableCredential.parseJwt(hotelVCJwt)
+
+        // console.log('\nParsed VC: \n' + parseVc.toString() + '\n')
+
+        const sendHotelVCDetails = async() => {
+            try{
+                const { record }  = await web5.dwn.records.create({
+                    data: hotelVCJwt,
+                    message: {
+                        dataFormat: 'application/vc+jwt',
+                        published: true,
+                        protocolPath: "bookedRooms",
+                        protocol: hotelReservationProtocol.protocol,
+                        schema: hotelReservationProtocol.types.bookedRooms.schema,
+                    }
+                })
+                
+                const data = await record.data.text()
+                console.log('Record ID', VerifiableCredential.parseJwt(data))
+
+                // Sending the created information to user's DID
+                const { status: sendStatus } = await record.send(userDID.value);
+
+                if (sendStatus.code !== 202) {
+                    console.log("Unable to send to target did:" + JSON.stringify(sendStatus));
+                    return;
+                }
+                else {
+                    console.log("VC details sent to recipient DWN");
+                }
+
+                const { status: sendStatusCompany } = await record.send(userDID.value);
+
+                if (sendStatusCompany.code !== 202) {
+                    console.log("Unable to send to target did:" + JSON.stringify(sendStatusCompany));
+                    return;
+                }
+                else {
+                    console.log("VC details sent to Company DWN");
+                }
+            } catch (e) {
+                console.error(e);
+                return;
+            }
+        }
+
+        await sendHotelVCDetails()
     }
 }
 </script>
