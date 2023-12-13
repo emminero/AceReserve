@@ -15,6 +15,9 @@ export default defineNuxtConfig({
       ],
       script: [
        {src: "https://cdn.jsdelivr.net/npm/@splidejs/splide@4.1.4/dist/js/splide.min.js"}
+      ],
+      meta: [
+        {name: 'viewport', content: 'width=device-width,initial-scale=1.0'},
       ]
     }
   },

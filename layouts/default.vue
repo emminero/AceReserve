@@ -2,7 +2,7 @@
     <div>
         <Head>
             <Title>AceReserve - A decentralized All-in-Booking Application</Title>
-            <Meta name="description" content="A web5 decentralized all-in-one booking application" /> 
+            <Meta name="description" content="A web5 decentralized all-in-one booking application" />
         </Head>
         <header>
             <div class="w-11/12 mx-auto py-8 flex justify-between items-center">
