@@ -13,7 +13,7 @@
             </div>
         </div>
 
-
+        {{ read }}
         <button @click="vc()" class="bg-black text-white px-6 py-2 my-5 text-semibold rounded-md inline-block">Get VC for a room</button>
     </div>
 </template>
@@ -29,6 +29,8 @@ const { $web5: web5, $myDID: myDID } = useNuxtApp();
 const empty = ref([])
 
 const emptyRooms = ref([])
+
+const read = ref('')
 
 const getEmptyRoom = async() => {
     try {
@@ -133,6 +135,7 @@ const getEmptyRoom = async() => {
         })
 
         const readVcJwt = await readRecord.data.text();
-        // console.log(readVcJwt)
+        read.value = VerifiableCredential.parseJwt(readVcJwt)
+        console.log(VerifiableCredential.parseJwt(readVcJwt))
     }
 </script>

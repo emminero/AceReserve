@@ -4,7 +4,7 @@
     "types": {
         "bookedRooms": {
             "schema": "https://hotelservice.com/schemas/bookedRooms",
-            "dataFormats": ["application/json"]
+            "dataFormats": ["application/vc+jwt"]
         },
         "availableRooms": {
             "schema": "https://hotelservice.com/schemas/availableRooms",
@@ -19,8 +19,7 @@
         "bookedRooms": {
             "$actions": [
                 { "who": "anyone", "can": "read" },
-                { "who": "author", "of": "bookedRooms", "can": "write" },
-                { "who": "recipient", "of": "bookedRooms", "can": "write" }
+                { "who": "anyone", "can": "write" } 
             ]
         },
         "availableRooms": {
@@ -33,7 +32,7 @@
         "hotelDetails": {
             "$actions": [
                 { "who": "anyone", "can": "read" },
-                { "who": "author", "of": "hotelDetails", "can": "write" }
+                { "who": "anyone", "can": "write" } 
             ]
         }
     }

@@ -4,19 +4,16 @@
             <select v-model="services" name="services" id="services" class="bg-black text-white px-4 py-2 rounded-md">
                 <option value="" disabled>Select an option</option>
                 <option value="hotel">Hotel Reservation</option>
-                <option value="car">Car Rental</option>
                 <option value="flight">Flight Reservation</option>
-                <option value="ticket">Ticket</option>
             </select>
 
-            <textarea v-model="userDID" class="border border-black rounded-sm mt-2 w-full h-3/5 p-2 block" placeholder="Input your DID"></textarea>
-            <input type="text" name="recordID" class="border border-black rounded-sm mt-2 w-full p-2 block" placeholder="Input record ID of your hotel details" id="">
+            <input type="text" v-model="userRecordId" class="border border-black rounded-sm mt-2 w-full p-2 block" placeholder="Input record ID of your hotel details" required>
             <p class="text-md text-center font-semibold text-red-600">{{ error }}</p>
             <button @click="register" class="bg-black text-white mt-2 inline py-2 ">Register</button>
 
             <hr class="border mt-10">
             <div class="flex flex-col">
-                <p class="text-sm text-center mt-1">For the purpose of this project, you can act as a service provider. Wait for few seconds for your did to generate</p>
+                <p class="text-sm text-center mt-1">For the purpose of this project, <NuxtLink to="/act-as-a-service" class="text-blue-600 underline">you can act as a service provider</NuxtLink>. Wait for few seconds for your did to generate</p>
                 <p v-show="!myDID" class="text-green-600 text-center font-bold">Generating/getting your DID....</p>
                 <button v-show="myDID" @click="copyDID()" class="bg-black text-white mt-2 w-3/5 py-2 mx-auto">Copy your generated DID</button>
             </div>
@@ -32,7 +29,8 @@ import hotelReservationProtocol from '~/assets/sharedProtocols/hotel-reservation
 const { $web5: web5, $myDID: myDID } = useNuxtApp();
 const services = ref('')
 const error = ref('')
-const userDID = ref('')
+const userRecordId = ref('')
+const companyDID = ref('')
 
 const copyDID = async() => {
     await navigator.clipboard.writeText(myDID);
@@ -43,9 +41,10 @@ function isEmpty(string) {
   return typeof string === 'string' && string.length === 0;
 }
 
+companyDID.value = "did:ion:EiDJbML7UODRf_T_gjJJxiHSo1K9HY5FBSk3tWWU8z9rdg:eyJkZWx0YSI6eyJwYXRjaGVzIjpbeyJhY3Rpb24iOiJyZXBsYWNlIiwiZG9jdW1lbnQiOnsicHVibGljS2V5cyI6W3siaWQiOiJkd24tc2lnIiwicHVibGljS2V5SndrIjp7ImNydiI6IkVkMjU1MTkiLCJrdHkiOiJPS1AiLCJ4IjoiYXhSTFVTZ25SeVJjX3VhWWs5RTFHWlNIZmItSVhsQUhjTlpEOXFSeE1POCJ9LCJwdXJwb3NlcyI6WyJhdXRoZW50aWNhdGlvbiJdLCJ0eXBlIjoiSnNvbldlYktleTIwMjAifSx7ImlkIjoiZHduLWVuYyIsInB1YmxpY0tleUp3ayI6eyJjcnYiOiJzZWNwMjU2azEiLCJrdHkiOiJFQyIsIngiOiJIQ1Y0Rmx2c0l1OUZXRy1hSnQ2cDlSRm9LV19kX3BNN1N6cXR2c25iZWFjIiwieSI6ImQ5aExqbVRfdDlBSTRpUkhibEFTRG5jWkZBYTYzcjFRN0JKRklsdFkycTQifSwicHVycG9zZXMiOlsia2V5QWdyZWVtZW50Il0sInR5cGUiOiJKc29uV2ViS2V5MjAyMCJ9XSwic2VydmljZXMiOlt7ImlkIjoiZHduIiwic2VydmljZUVuZHBvaW50Ijp7ImVuY3J5cHRpb25LZXlzIjpbIiNkd24tZW5jIl0sIm5vZGVzIjpbImh0dHBzOi8vZHduLnRiZGRldi5vcmcvZHduMSIsImh0dHBzOi8vZHduLnRiZGRldi5vcmcvZHduMiJdLCJzaWduaW5nS2V5cyI6WyIjZHduLXNpZyJdfSwidHlwZSI6IkRlY2VudHJhbGl6ZWRXZWJOb2RlIn1dfX1dLCJ1cGRhdGVDb21taXRtZW50IjoiRWlCRkFKb2ktdEcwUVRuNWtnbFpIQ25rNFJJWnc1NWd1RThoM0RkVnZrbk8zdyJ9LCJzdWZmaXhEYXRhIjp7ImRlbHRhSGFzaCI6IkVpRGZ0dndrakU5dlN0bTF2WkNnSV96SDNKNFYydVdiYVNMcDVrclk1YmFkelEiLCJyZWNvdmVyeUNvbW1pdG1lbnQiOiJFaUJfVFRVSFdpVVI4TXBwV2FBaEFsNmZFLXZTM2VPTXhDdVhOOE1tMGt3SjBRIn19"
+
 const register = async() => {
     if(isEmpty(services.value)) return error.value = "Select a service"
-    else if(isEmpty(userDID.value)) return error.value = "Input your DID"
 
     if(services.value == 'hotel'){
         //Installing a protocol to my DWN and anybodies DWN.
@@ -68,7 +67,6 @@ const register = async() => {
             // if the protocol already exists, we return
             if(protocols.length > 0) {
                 console.log('Protocol already exists');
-                alert('Hotel protocol already exist but successfully registered to our application.')
                 return;
             }
 
@@ -82,70 +80,42 @@ const register = async() => {
             protocol.send(userDID)
 
             console.log('Protocol configured', configureStatus, protocol);
-            alert('Successful registered and Hotel protocol successfully installed.')
         }
 
         await configureProtocol()
 
-        //Create Hotel Details
+        const getAndSendRecord = async() => {
+            console.log(userRecordId.value)
+            try{
+                // Reads the indicated record from the user's DWNs
+                let { record } = await web5.dwn.records.read({
+                    message: {
+                        filter: {
+                            recordId: userRecordId.value,
+                        },
+                    },
+                });
 
-        // const hotelDetail = {
-        //     "@type" : "hotelDetails",
-        //     "details" : {
-        //         "name" : "Golden Villa Suite",
-        //         "location": "James Street, Lagos",
-        //         "star": "3 stars",
-        //         "perNight": 20000,
-        //         "state": "Lagos",
-        //         "country": "Nigeria",
-        //         "image": "https://media.istockphoto.com/id/1454662719/photo/african-american-tourists-with-suitcases-in-front-of-the-rented-apartment.webp?b=1&s=170667a&w=0&k=20&c=0gDMkmXBYiwcQ3Gc9loQ7--kaN38Wb9UQWWSSw8czqE=",
-        //         "rating": "9/10",
-        //         "review": "436"
-        //     }
-        // }
+                // console.log(await record.data.json())
+                // Sending the created information to myDID
+                const { status: sendStatus } = await record.send(companyDID.value);
+
+                if (sendStatus.code !== 202) {
+                    console.log("Unable to send to target did:" + JSON.stringify(sendStatus));
+                    return;
+                }
+                else {
+                    console.log("Record details sent to Companies DWN");
+                }
+            } catch (e) {
+                console.error(e);
+                return;
+            }
+        }
         
-        // const sendHotelDetail = async() => {
-        //     try{
-        //         const { record }  = await web5.dwn.records.create({
-        //             data: hotelDetail,
-        //             message: {
-        //                 protocol: hotelReservationProtocol.protocol,
-        //                 protocolPath: 'hotelDetails',
-        //                 published: true,
-        //                 dataFormat: hotelReservationProtocol.types.hotelDetails.dataFormats[0],
-        //                 schema: hotelReservationProtocol.types.hotelDetails.schema,
-        //             }
-        //         });
+        await getAndSendRecord()
 
-        //         const result = await record.data.json()
-        //         const message = {
-        //             record, result, id: record.id
-        //         }
-
-        //         //Sending the created information to myDID
-        //         const { status: sendStatus } = await record.send(userDID.value);
-
-        //         if (sendStatus.code !== 202) {
-        //             console.log("Unable to send to target did:" + sendStatus);
-        //             return;
-        //         }
-        //         else {
-        //             console.log("Hotel details sent to recipient DWN");
-        //         }
-
-        //         //https://developer.tbd.website/docs/web5/build/decentralized-web-nodes/send-to-dwn
-
-        //         console.log("message:", message)
-        //     } catch (e) {
-        //         console.error(e);
-        //         return;
-        //     }
-        // }
-
-        // await sendHotelDetail()
     }
-
-    // await navigateTo('/hotel')
 }
 
 //Create Hotel Details

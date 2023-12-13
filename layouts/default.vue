@@ -25,13 +25,13 @@
                                 </NuxtLink>
                             </li>
                             <li>
-                                <NuxtLink>
-                                    Car Hiring
+                                <NuxtLink to="/act-as-a-service">
+                                    Act as Service
                                 </NuxtLink>
                             </li>
                             <li>
-                                <NuxtLink>
-                                    E-Ticket
+                                <NuxtLink to="/check-bookings">
+                                    Check Bookings
                                 </NuxtLink>
                             </li>
                         </ul>
